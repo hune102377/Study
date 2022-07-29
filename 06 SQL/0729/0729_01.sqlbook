@@ -1,0 +1,102 @@
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+use sakila
+-- SQLBook: Code
+
+select * from language;
+
+select language_id,
+    'COMMON' language_useage,
+    language_id * 3.14 lang_pi_value,
+    upper(name) language_name   
+from language;
+
+select actor_id from film_actor order by actor_id;
+
+select distinct actor_id from film_actor order by actor_id; 
+
+select concat(cust.first_name, ' ', cust.last_name) full_name
+FROM
+    (select first_name, last_name, email
+    from customer
+    where first_name = 'jessie'
+)as cust;
+
+create temporary table actors_j
+(actor_id smallint(5),
+first_name varchar(45),
+last_name varchar(45)
+);
+
+insert into actors_j
+select actor_id, first_name, last_name
+from actor where last_name like 'j%';
+
+select * from actors_j;
+
+select actor_id, first_name, last_name
+from actor where last_name like 'j%';
+
+create view cust_vw as
+select customer_id, first_name, last_name, active
+from customer;
+
+select * from cust_vw;
+
+select first_name, last_name, active from cust_vw
+where active =0;
+
+select customer.first_name, customer.last_name,
+    time(rental.rental_date) as rental_time
+from customer inner join rental
+    on customer.customer_id = rental.customer_id
+where date(rental.rental_date) = '2005-06-14';
+
+# datetime 데이터에서 date 정보(YYYY-MM-DD)만 추출
+select date('2021-07-29 09:02:03');
+
+select customer.first_name, customer.last_name,
+    time(rental.rental_date) rental_date
+from customer inner join rental
+    on customer.customer_id = rental.customer_id
+where date(rental.rental_date) = '2005-06-14';
+
+select c.first_name, c.last_name,
+    time(r.rental_date) rental_date
+from customer c inner join rental r
+    on c.customer_id = r.customer_id
+where date(r.rental_date) = '2005-06-14';
+
+select c.first_name, c.last_name, count(*)
+from customer as c
+    inner join rental as r
+    on c.customer_id = r.customer_id
+group by c.first_name, c.last_name
+having count(*) >= 40;
+
+select c.first_name, c.last_name,
+    time(r.rental_date) as rental_time
+from customer as c
+    inner join rental as r
+    on c.customer_id = r.customer_id
+where date(r.rental_date) = '2005-06-14'
+order by c.last_name, c.first_name asc;
+
+select actor_id, first_name, last_name
+from actor
+order by last_name, first_name;
+
+select actor_id, first_name, last_name
+from actor
+where last_name = 'Willams' or last_name = 'davis';
+
+select distinct customer_id
+from rental
+where date(rental_date) = '2005-07-05';
+
+select c.store_id, c.email, r.return_date
+from customer as c
+inner join rental as r
+on c.customer_id = r.customer_id
+where date(r.rental_date) = '2005-06-14'
+order by return_date desc;

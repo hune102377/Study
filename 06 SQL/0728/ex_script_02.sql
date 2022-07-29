@@ -1,3 +1,4 @@
+-- Active: 1658998305252@@127.0.0.1@3306@sqlclass_db
 creat database sqlclass_db;
 
 use sqlclass_db;
