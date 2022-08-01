@@ -1,0 +1,70 @@
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+# c.first_name과 c.last_name, a.address를 내부 조인
+# 일치하지 않는 데이터는 검색하지 않음
+select c.first_name, c.last_name, a.address
+from customer as c join address as a;
+-- SQLBook: Code
+# c.first_name과 c.last_name, a.address를 내부 조인
+# 두 테이블의 address_id가 다르면 join 되지 않음
+from customer as c inner join address as a
+on c.address_id = a.address_id;
+-- SQLBook: Code
+# c.first_name과 c.last_name, a.address를 외부 조인
+# 합칩합 형태로 없는 데이터는 공백으로 만들고 join
+select c.first_name, c.last_name, a.address, a.postal_code
+from customer as c inner join address as a
+    on c.address_id = a.address_id # join 조건절과 필터
+where a.postal_code = 52137; 
+-- SQLBook: Code
+# 세 개의 테이블 조인
+# customer 테이블과 address 테이블을 address_id로 연결
+# address 테이블과 city 테이블을 city_id로 연결
+# 테이블 순서는 상관없음
+select c.first_name, c.last_name, ct.city
+from customer as c
+    inner join address as a
+    on c.address_id = a.address_id
+    inner join city as ct
+    on a.city_id = ct.city_id;
+-- SQLBook: Markup
+• address 테이블과 city 테이블을 내부 조인  
+• 필터링 조건: district의 이름이 ‘California’
+-- SQLBook: Code
+select c.first_name, c.last_name, addr.address, addr.city, addr.district
+from customer as c
+    inner join
+    (select a.address_id, a.address, ct.city, a.district
+    from address as a
+        inner join city ct
+        on a.city_id = ct.city_id
+    where a. district = 'California'
+    ) as addr
+on c.address_id = addr.address_id;
+-- SQLBook: Markup
+두 명의 특정 배우가 출연한 영화 제목 검색
+-- SQLBook: Code
+select f.title, a.first_name, a.last_name
+from film as f
+    inner join film_actor as fa
+    on f.film_id = fa.film_id
+    inner join actor a
+    on fa.actor_id = a.actor_id
+where ((a.first_name = 'CATE' and a.last_name = 'MCQUEEN')
+    or (a.first_name = 'CUBA' and a.last_name = 'BIRCH'));
+-- SQLBook: Markup
+두 배우가 같이 출연한 영화만 검색
+-- SQLBook: Code
+select f.title, a1.first_name, a1.last_name
+from film as f
+    inner join film_actor as fa1
+    on f.film_id = fa1.film_id
+    inner join actor a1 # film, film_actor, actor 내부 조인 #1
+    on fa1.actor_id = a1.actor_id
+    inner join film_actor as fa2
+    on f.film_id = fa2.film_id
+    inner join actor a2 # film, film_actor, actor 내부 조인 #2
+    on fa2.actor_id = a2.actor_id
+where (a1.first_name = 'CATE' and a1.last_name = 'MCQUEEN')
+    and (a2.first_name = 'CUBA' and a2.last_name = 'BIRCH');
+-- SQLBook: Markup
