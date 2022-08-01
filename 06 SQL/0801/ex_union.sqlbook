@@ -1,0 +1,7 @@
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+select 'CUST' as type1, c.first_name, c.last_name
+from customer as c
+union ALL
+select 'ACTR' as type1, a.first_name, a.last_name
+from actor as a;

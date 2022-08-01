@@ -1,0 +1,54 @@
+-- SQLBook: Markup
+sqlclass_db 사용
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sqlclass_db
+use sqlcalss_db;
+-- SQLBook: Markup
+customer 테이블이 있다면 삭제
+-- SQLBook: Code
+drop table if exists customer;
+-- SQLBook: Markup
+customer 테이블 생성
+-- SQLBook: Code
+create table customer
+    (customer_id smallint unsigned,
+    first_name varchar(20),
+    last_name varchar(20),
+    birth_date date,
+    spouse_id smallint unsigned,
+    constraint primary key (customer_id));
+-- SQLBook: Markup
+customer 테이블 확인
+-- SQLBook: Code
+desc customer;
+-- SQLBook: Markup
+customer 테이블에 데이터 추가
+-- SQLBook: Code
+insert into customer (customer_id, first_name, last_name, birth_date, spouse_id)
+VALUES
+(1, 'John', 'Mayer', '1983-05-12', 2),
+(2, 'Mary', 'Mayer', '1990-07-30', 1),
+(3, 'Lisa', 'Ross', '1989-04-15', 5),
+(4, 'Anna', 'Timothy', '1988-12-26', 6),
+(5, 'Tim', 'Ross', '1957-08-15', 3),
+(6, 'Steve', 'Donell', '1967-07-09', 4);
+
+insert into customer (customer_id, first_name, last_name, birth_date)
+values (7, 'Donna', 'Trapp', '1978_06-23');
+-- SQLBook: Code
+select * from customer;
+-- SQLBook: Markup
+self-join 예제
+-- SQLBook: Code
+select 
+    cust.customer_id,
+    cust.first_name,
+    cust.last_name,
+    cust.birth_date,
+    cust.spouse_id,
+    spouse.first_name as spouse_firstname,
+    spouse.last_name as spouse_lastname
+from customer as cust
+    join customer as spouse
+    on cust.spouse_id = spouse.customer_id;
+-- SQLBook: Markup

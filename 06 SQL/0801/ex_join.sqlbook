@@ -68,3 +68,22 @@ from film as f
 where (a1.first_name = 'CATE' and a1.last_name = 'MCQUEEN')
     and (a2.first_name = 'CUBA' and a2.last_name = 'BIRCH');
 -- SQLBook: Markup
+JOHN이라는 이름의 배우가 출연한 모든 영화의 제목을 출력
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+select f.title
+from film as f
+    inner join film_actor as fa
+    on f.film_id = fa.film_id
+    inner join actor as a
+    on fa.actor_id = a.actor_id
+where a.first_name = 'John';
+-- SQLBook: Markup
+같은 도시에 있는 모든 주소를 반환하는 쿼리 작성
+-- SQLBook: Code
+select a1.address as addr1, a2.address as addr2, a1.city_id, a1.district
+from address as a1
+    inner join address as a2
+where (a1.city_id = a2.city_id)
+    and (a1.address_id != a2.address_id);
+-- SQLBook: Markup
