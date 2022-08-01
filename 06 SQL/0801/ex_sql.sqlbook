@@ -1,0 +1,84 @@
+-- SQLBook: Code
+use testdb
+-- SQLBook: Code
+drop table string_tbl
+-- SQLBook: Code
+create table string_tbl (
+    char_fld char(30),
+    vchar_fld varchar(30),
+    text_fld text
+);
+-- SQLBook: Code
+insert into string_tbl (char_fld, vchar_fld, text_fld)
+values ('This string is 28 characters',
+'This string is 28 characters',
+'This string is 28 characters');
+-- SQLBook: Code
+select * from string_tbl
+-- SQLBook: Markup
+length() 함수  
+§ 문자열의 개수를 반환
+-- SQLBook: Code
+select length(char_fld) as char_length,
+length(vchar_fld) as varchar_length,
+length(text_fld) as text_length
+from string_tbl;
+-- SQLBook: Markup
+§ position() 함수  
+§ 부분 문자열의 위치를 반환 (MySQL의 문자열 인덱스: 1부터 시작)  
+§ 부분 문자열을 찾을 수 없는 경우, 0을 반환함
+-- SQLBook: Code
+select position('characters' in vchar_fld)
+from string_tbl;
+-- SQLBook: Code
+select locate('is', vchar_fld, 5)
+from string_tbl;
+-- SQLBook: Markup
+locate(‘문자열’, 열이름, 시작위치) 함수  
+§ 특정 위치의 문자부터 검색, 검색의 시작 위치 정의
+-- SQLBook: Code
+delete from string_tbl
+-- SQLBook: Code
+insert into string_tbl(vchar_fld)
+values ('abcd'),
+('xyz'),
+('QRSTUV'),
+('qrstyv'),
+('12345');
+-- SQLBook: Code
+select strcmp('12345', '12345') 12345_12345,
+strcmp('abcd', 'xyz') abcd_xyz,
+strcmp('abcd', 'QRSTUV') abcd_QRSTUV,
+strcmp('qrstuv', 'QRSTUV') qrstuv_QRSTUV,
+strcmp('12345', 'xyz') 12345_xyz,
+strcmp('xyz', 'qrstuv') xyz_qrstuv;
+-- SQLBook: Code
+select cast('2019-09-17 15:30:00' as datetime);
+-- SQLBook: Code
+select cast('2019-09-17' as date) date_field,
+cast('108:17:57' as time) time_field;
+-- SQLBook: Code
+select
+cast('2019-09-17 15:30:00' as datetime) dt1,
+cast('2019/09/17 15:30:00' as datetime) dt2,
+cast('2019,09,17,15,30,00' as datetime) dt3,
+cast('20190917153000' as datetime) dt4;
+-- SQLBook: Code
+select
+str_to_date('September 17, 2019', '%M %d, %Y') as return_date_01,
+str_to_date('03 17, 19', '%m %d, %y') as return_date_02,
+-- SQLBook: Code
+select CURRENT_DATE(), CURRENT_TIME(), CURRENT_TIMESTAMP();
+-- SQLBook: Code
+select current_date() today,
+date_add(current_date(), interval 45 day) as '45 day later';
+-- SQLBook: Code
+select cast('20220101' as date);
+select cast(20220101 as char);
+select cast(now() as signed);
+-- SQLBook: Code
+select extract(year from '2019-09-18 22:19:05') as year,
+extract(month from '2019-09-18 22:19:05') as month,
+extract(day from '2019-09-18 22:19:05') as day,
+extract(hour from '2019-09-18 22:19:05') as hour;
+-- SQLBook: Markup
