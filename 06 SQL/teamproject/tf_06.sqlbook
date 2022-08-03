@@ -1,0 +1,51 @@
+-- SQLBook: Code
+create DATABASE project6;
+-- SQLBook: Code
+use project6;
+-- SQLBook: Code
+# 인권_주제 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 인권_주제
+where 통합 = '소계';
+-- SQLBook: Code
+# 차별을_많이_받는_사람 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 차별을_많이_받는_사람
+where 통합 = '소계';
+-- SQLBook: Code
+# 인권_증진_방안 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 인권_증진_방안
+where 통합 = '소계';
+-- SQLBook: Code
+# 장애인_존중_평가 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 장애인_존중_평가
+where 평가 = '소계';
+-- SQLBook: Code
+# 정부_평가 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 정부_평가
+where 평가 = '소계';
+-- SQLBook: Code
+# 장애등록_후_지원_의식_평가 table의 통합 column의 '소계'에 해당하는 데이터 읽어오기
+select * from 장애등록_후_지원_의식_평가
+WHERE 평가 = '소계';
+-- SQLBook: Code
+# 사회적_차별_경험 table의 통합 column의 '소계'인 초등학교, 중학교, 고등학교, 대학교, 결혼, 취업, 지역사회생활 컬럼 데이터 읽어오기
+select 초등학교, 중학교, 고등학교, 대학교,
+결혼, 취업, 지역사회생활 from 사회적_차별_경험
+where 통합 = '소계';
+-- SQLBook: Code
+# 사회적_차별_경험 table의 통합 column의 '소계'인 또래학생으로부터, 교사로부터, 학부모로부터 컬럼 데이터 읽어오기
+select 또래학생으로부터, 교사로부터, 학부모로부터 from 사회적_차별_경험
+where 통합 = '소계';
+-- SQLBook: Code
+# 특수학교_통합교육_운영_여부 table의 통합 column의 운영함과 운영하지 않음에 해당하는 데이터 읽어오기
+select 운영함, `운영하지 않음` from 특수학교_통합교육_운영_여부
+where 통합 = '소계' and 항목 = '대상자수 (명)';
+
+-- SQLBook: Code
+# 특수학급_통합교육_형태 table의 통합 column의 일반학급 완전통합과 특수학급 시간제 운영, 특수학급 전일제 운영, 기타에 해당하는 데이터 읽어오기
+select `일반학급 완전통합`, `특수학급 시간제 운영`, `특수학급 전일제 운영`, 기타
+from 특수학급_통합교육_형태
+where 통합 = '전체' and 항목 = '비율 (%)';
+
+-- SQLBook: Code
+select `일반학교 교육활동에 특수교육대상학생이 참여하는 통합`, `특수학교 교육활동에 일반학생이 참여하는 역통합`, `통합과 역통합 혼용`, 기타 from 특수학교_통합_방법
+where 통합 = '소계' and 항목 = '비율 (%)';
