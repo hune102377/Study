@@ -2,6 +2,7 @@
 -- Active: 1658998305252@@127.0.0.1@3306@sakila
 use sakila
 -- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
 
 select * from language;
 
@@ -100,3 +101,79 @@ inner join rental as r
 on c.customer_id = r.customer_id
 where date(r.rental_date) = '2005-06-14'
 order by return_date desc;
+
+select c.email
+from customer as c
+    inner join rental as r
+    on c.customer_id = r.customer_id
+where date(r.rental_date) <> '2005-06-14';
+
+select customer_id, rental_date
+from rental
+where rental_date < '2005-05-25';
+
+select customer_id, rental_date
+from rental
+where rental_date <= '2005-06-16'
+    and rental_date >= '2005-06-14';
+
+select customer_id, rental_date
+from rental
+where date(rental_date) <= '2005-06-16'
+    and date(rental_date) >= '2005-06-14';
+
+select customer_id, rental_date
+from rental
+where rental_date between '2005-06-14' and '2005-06-16';
+
+select last_name, first_name
+from customer
+where last_name between 'FA' and 'FRB';
+
+# PET 이라는 단어가 타이틀에 들어가는 작품의 rating을 찾아서 film내에 같은 rating을 공유하는 작품의 title과 rating을 표시
+select title, rating
+from film
+where rating in (select rating from film where title like '%PET%');
+
+select title, rating from film where title like '%PET%';
+
+
+select title, rating from film where title like '%kill%';
+
+select title, rating
+from film
+where rating in (select rating from film where title like '%kill%');
+
+select title, rating
+from film
+where rating in ('R');
+
+# 두번째 위치에 'A', 네 번째 위치에 'T'를 포함하며 마지막은 'S'로 끝나는 문자열
+select last_name, first_name
+from customer
+where last_name like '_A_T%S';
+
+select last_name, first_name
+from customer
+where last_name like 'Q%' or last_name like 'Y%';
+
+# Q 또는 Y로 시작하는 단어 검색
+select last_name, first_name
+from customer
+Where last_name REGEXP '^[QY]';
+
+# customer_id가 5가 아니고 amount가 8보다 크거나 payment_date가 2005년 8월 23일인 경우
+select payment_id, customer_id, amount, date(payment_date) payment_date
+from payment
+where (payment_id between 101 and 120)
+and customer_id != 5 and (amount > 8 or date(payment_date) = '2005-08-23');
+
+# customer_id가 5이면서 amout가 6보다 크거나 payment_date가 2005년 6월 19일인 경우
+select payment_id, customer_id, amount, date(payment_date) payment_date
+from payment
+where (payment_id between 101 and 120)
+and customer_id = 5 and not (amount > 6 or date(payment_date) = '2005-06-19');
+
+# amount가 1.98이거나 7.98 또는 9.98인 경우의 amount
+select amount from payment
+where amount in (1.98, 7.98, 9.98)

@@ -1,0 +1,36 @@
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@testdb
+create DATABASE shoppingmall;
+-- SQLBook: Code
+use shoppingmall;
+-- SQLBook: Code
+drop DATABASE shoppingmall;
+-- SQLBook: Code
+create table user_table
+    (
+    userID CHAR(8) not null,
+    userName VARCHAR(10) not null,
+    birthYear int not null,
+    addr CHAR(2) not null,
+    mobile1 CHAR(3),
+    mobile2 CHAR(8),
+    height SMALLINT,
+    mDate DATE,
+    CONSTRAINT PRIMARY KEY (userID)
+    );
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@shoppingmall
+create table buy_table
+    (
+    num int AUTO_INCREMENT not null,
+    userName CHAR(8) not null,
+    prodName CHAR(6) not null,
+    gruopName CHAR(4) not null,
+    price int not null,
+    amount smallint not null,
+    CONSTRAINT PRIMARY KEY (num)
+    );
+-- SQLBook: Code
+desc user_table;
+-- SQLBook: Code
+desc buy_table;

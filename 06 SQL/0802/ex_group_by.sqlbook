@@ -1,0 +1,48 @@
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+use sakila;
+-- SQLBook: Markup
+group by  
+§ 많은 데이터를 일일이 조회하기 어려운 경우가 많음  
+§ group by 절을 사용하여 특정 컬럼의 데이터를 그룹화  
+§ 집계 함수(aggregate function)를 사용하여 각 그룹의 행 수를 계산
+-- SQLBook: Code
+select customer_id, count(*)
+from rental
+group by customer_id;
+-- SQLBook: Code
+select customer_id, count(*)
+from rental
+group by customer_id
+order by 2 desc;
+-- SQLBook: Markup
+where 절이 적용된 다음, order by절이 실행  
+- 필터링을 적용할 수 없음 (따라서 having 절을 사용함)  
+group by 다음에 having 절 사용  
+-- SQLBook: Code
+select customer_id, count(*)
+from rental
+group by customer_id
+having count(*) >= 40
+order by 2 desc;
+-- SQLBook: Code
+select customer_id,
+    max(amount) as max_amt,
+    min(amount) as min_amt,
+    avg(amount) as avg_amt,
+    sum(amount) as tot_amt,
+    count(*) as num_payments
+from payment
+group by customer_id;
+-- SQLBook: Code
+select * from payment;
+-- SQLBook: Code
+select
+count(customer_id) as num_rows,
+count(distinct customer_id) as num_customers
+from payment;
+-- SQLBook: Code
+-- Active: 1658998305252@@127.0.0.1@3306@sakila
+select customer_id, count(*), sum(amount)
+from payment
+group by customer_id;
