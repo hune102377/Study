@@ -68,6 +68,10 @@ plot(st$Illiteracy, st$`HS Grad`,
      col = 'green',
      pch = '+')
 
+st["Washington",]
+st["Washington","Income"]
+st[,"Income"]
+
 # 데이터프레임의 저장과 불러오기
 # csv 파일 활용 : read.csv(), write.csv(데이터, '파일명')
 # 엑셀 파일 직접 읽어오기 : readxl 패키지의 read_excel()
@@ -80,6 +84,22 @@ getwd()
 ?write.csv
 
 df_02 <-  read.csv('my.iris.csv')
+df_02
 df_02$Sepal.Sum
 max(df_02$Sepal.Sum)
 rownames(df_02[df_02$Sepal.Sum == max(df_02$Sepal.Sum), ])
+
+# 엑셀파일 읽어오기
+#install.packages('readxl')
+library(readxl)
+df <-  read_excel('성적표.xlsx', sheet = 1)
+
+df <- data.frame(df)
+str(df)
+class(df)
+
+df$평균 <-  round(apply(df[,3:5], MARGIN = 1, mean), digits = 1)
+
+df
+
+?barplot
