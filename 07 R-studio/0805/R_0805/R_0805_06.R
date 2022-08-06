@@ -103,3 +103,5 @@ df$평균 <-  round(apply(df[,3:5], MARGIN = 1, mean), digits = 1)
 df
 
 ?barplot
+
+?barplot
