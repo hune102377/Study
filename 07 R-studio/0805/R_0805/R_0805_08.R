@@ -70,3 +70,55 @@ aggregate(df[, -5],
 aggregate(df[, -5],
           by = list(품종 = df$Species),
           FUN = sd)
+
+library(MASS)
+data('survey')
+df <- survey
+str(df)
+
+df <- na.omit(df)
+dim(df)
+
+hist(df[df$Sex == 'Male', ]$Height, breaks = 20)
+hist(df[df$Sex == 'Female', ]$Height, breaks = 20)
+
+mean(df[df$Sex == 'Male', ]$Height)
+mean(df[df$Sex == 'Female', ]$Height)
+
+aggregate(df[,c(10,12)],
+          by = list(Gender = df$Sex),
+          FUN = mean)     
+
+table(df$Sex)
+t.test(Height ~ Sex, data = df)
+
+boxplot(Height ~ Sex, data = df,
+        col = c('orange', "tomato"))
+
+#sort(), order()
+mtcars$mpg
+sort(mtcars$mpg) # 있는 값들을 정렬
+
+order(mtcars$mpg) # 정렬한 값들의 기존 인덱스 번호를 반환환
+
+v <- c(30, 50, 20, 40, 10)
+sort(v)
+order(v)
+
+df <- data.frame(state.x77)
+str(df)
+
+sort(df$Illiteracy, decreasing = T)
+
+ord <- order(df$Illiteracy, df$Income, decreasing = T)
+df[ord[1:10], c(3,2)]
+
+# sample(범위, 갯수, replace(복원여부))
+sample(1:10, size = 5)
+
+s <- 0
+for (i in 1:1000000) {
+  x <- sample(1:10, size = 5)
+  s <- s + sum(x ==7)
+}
+s
